@@ -1,0 +1,22 @@
+{
+  "short_name": "QMF",
+  "output": "QMF_论文讲解",
+  "kicker": "论文讲解",
+  "title_zh": "QMF：低质量多模态数据的可证明动态融合",
+  "title_en": "Provable Dynamic Fusion for Low-Quality Multimodal Data",
+  "authors": "Qingyang Zhang, Haitao Wu, Changqing Zhang, Qinghua Hu, Huazhu Fu, Joey Tianyi Zhou, Xi Peng",
+  "venue": "ICML 2023 · arXiv:2306.02050",
+  "outro": [
+    "论文：Zhang et al., Provable Dynamic Fusion for Low-Quality Multimodal Data, ICML 2023",
+    "代码：github.com/QingyangZhang/QMF"
+  ],
+  "outro_note": "文中数字均对照论文 PDF 核实；演示数值为自拟，已在画面标注",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+6%",
+  "tts_replace": {
+    "ConcatBert": "Concat Bert",
+    "RGB-D": "RGB D",
+    "FOOD101": "FOOD 一零一"
+  },
+  "quality": "1080p30"
+}
