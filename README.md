@@ -1,6 +1,6 @@
 # Paper-Video
 
-一个 [Claude Code](https://claude.com/claude-code) 技能（skill）：给它一篇论文 PDF，它会先上网查资料、再写一份逐镜讲解脚本，最后用 Manim 动画、edge-tts 配音和烧录字幕做出一部 10 分钟以内的中文讲解视频，同时生成 B 站上传版。
+一个 [Claude Code](https://claude.com/claude-code) 技能（skill）：给它一篇论文 PDF，它会先上网查资料、再写一份逐镜讲解脚本，最后用 Manim 动画、edge-tts 配音和烧录字幕做出一部 10 分钟以内的中文讲解视频。
 
 这个技能是从 QMF 论文（Zhang et al., *Provable Dynamic Fusion for Low-Quality Multimodal Data*, ICML 2023）讲解视频的完整制作过程中整理出来的，主要给 Claude Opus 使用。
 
@@ -24,7 +24,7 @@
   ├─ 阶段 4  写镜头              每镜一个 Manim 场景，动画挂在口播的词上同步出现；
   │                              原文表格/图截图 + 精确到单元格的高亮
   │
-  └─ 阶段 5  渲染、合成、质检     → <output>.mp4、.srt、<output>_B站上传版.mp4
+  └─ 阶段 5  渲染、合成、质检     → <output>.mp4、<output>.srt
 ```
 
 视频的成品标准：外行观众听完能说出论文研究什么、贡献是什么、结论怎样得来、证据支持到哪里为止；视频里的每个数字都能在原文里找到出处；论文没说清的地方直接说出来，不替作者补全。
@@ -37,7 +37,7 @@ git clone https://github.com/123aliez/Paper-Video ~/.claude/skills/paper-video
 
 装好后在 Claude Code 里用 `/paper-video` 调用，或者直接说需求，例如：
 
-> 把 ~/papers/xxx.pdf 做成论文讲解视频，我要上传到 B 站
+> 把 ~/papers/xxx.pdf 做成论文讲解视频
 
 > 先只给这篇论文写视频脚本，我看过再做视频
 
@@ -81,7 +81,7 @@ paper-video/
 │   ├── pdf_assets.py           词坐标、页面渲染、原图、逐页文本
 │   ├── extras.py               片头片尾
 │   ├── render.sh  preview.sh   并行渲染 / 低清预览 + 截帧拼图
-│   ├── assemble.py             拼接、响度归一、字幕、编码（含 --bilibili）
+│   ├── assemble.py             拼接、响度归一、字幕、编码
 │   ├── qa_frames.py            成片逐镜截帧拼图
 │   ├── manim.cfg  video.json
 └── examples/qmf/               完整范例：脚本、26 个镜头的代码、插画生成
@@ -99,12 +99,10 @@ cd production
 ./preview.sh ch1 S1_2 3 8 14            # 预览单个镜头
 ./render.sh                             # 全部渲染
 .venv/bin/python assemble.py            # 成片 + SRT
-.venv/bin/python assemble.py --bilibili # B 站上传版
 ```
 
 ## 说明
 
-- B 站上传版采用两遍编码，目标码率 5800 kbps。讲解视频画面大多是静态的，编码器很早就接近无损，所以实测平均码率通常只有 1–2 Mbps，这是正常现象。B 站的码率上限来自社区整理，不是官方文档。
 - `examples/qmf/` 里的截图坐标和素材文件名只适用于 QMF 论文，供参考写法，新论文需要重新量取。仓库不包含论文 PDF 和渲染出的视频。
 
 ## 致谢

@@ -1,6 +1,6 @@
 ---
 name: paper-video
-description: "Turn a research paper (PDF, arXiv link or title) into a finished Chinese explainer video (论文讲解视频) end to end: web research on the paper, a fact-checked shot-by-shot narration script written with the ljg-paper explanation method, edge-tts voice-over, Manim animations built on real figure and table crops from the PDF, burned subtitles, and a Bilibili upload encode. Use this whenever the user hands over a paper and wants a video, 讲解视频, B站视频, 动画讲解, 视频脚本 or 口播稿 about it, even if they only ask for the script, only for the production half, or just say 'make a video of this paper'."
+description: "Turn a research paper (PDF, arXiv link or title) into a finished Chinese explainer video (论文讲解视频) end to end: web research on the paper, a fact-checked shot-by-shot narration script written with the ljg-paper explanation method, edge-tts voice-over, Manim animations built on real figure and table crops from the PDF, and burned subtitles. Use this whenever the user hands over a paper and wants a video, 讲解视频, B站视频, 动画讲解, 视频脚本 or 口播稿 about it, even if they only ask for the script, only for the production half, or just say 'make a video of this paper'."
 ---
 
 # paper-video：从一篇论文 PDF 到可以上传的讲解视频
@@ -92,7 +92,6 @@ cd <工作目录>/production
 ./render.sh                         # 后台跑，4 路并行，约 10–15 分钟
 .venv/bin/python assemble.py        # → ../<output>.mp4 与 .srt
 .venv/bin/python qa_frames.py       # → build/qa/sheet_*.png，逐张用 Read 检查
-.venv/bin/python assemble.py --bilibili
 ```
 
 看完全部质检拼图，逐镜对照脚本的画面描述；抽几条字幕在结束时刻截帧，确认音画同步。有问题就改代码，`./render.sh <Scene>` 重渲，再合成。
@@ -101,12 +100,12 @@ cd <工作目录>/production
 
 向用户汇报：
 
-- 文件路径：成片、SRT、B 站上传版、脚本、research.md。
+- 文件路径：成片、SRT、脚本、research.md。
 - 成片时长、分辨率和码率、响度（`ffprobe` 和 `loudnorm` 实测）。
 - 做过哪些核对：数字复核、独立观看检查的四项判定、质检。
 - 没做或没通过的项目，以及剩下的已知问题。
 
-说法要和实测一致。例如 B 站版的实际码率远低于目标，是因为静态画面已接近无损，这要如实说明，不要说成“已提高到 5800 kbps”。
+说法要和实测一致：没跑过的检查不说成通过，告警没修完就如实列出。
 
 ## 文件索引
 

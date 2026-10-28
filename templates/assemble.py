@@ -1,7 +1,6 @@
 """Mux rendered shots with narration, build subtitles, and encode the final video.
 
 Usage: python assemble.py [--no-burn]
-       python assemble.py --bilibili   (re-encode the built video as a high-bitrate upload master)
 Reads   render/<Scene>/videos/<module>/<quality>/<Scene>.mp4, audio/, timing/
 Writes  ../<output>.mp4, ../<output>.srt, build/subs.ass   (<output> from video.json)
 """
@@ -221,29 +220,5 @@ def main():
     print("wrote", out)
 
 
-def encode_bilibili():
-    """High-bitrate upload master from the existing build files. Bilibili limits (community sources,
-    re-check before relying on them): 1080P average <= 6000 kbps, peak <= 24000 kbps; 4K average
-    <= 20000 kbps; AAC <= 320 kbps. Two-pass ABR. Static slides usually saturate far below the
-    target (x264 reaches QP ~1), so a low measured average is expected, not a failure."""
-    out = OUT_DIR / f"{NAME}_B站上传版.mp4"
-    log = str(BUILD / "x264_2pass")
-    uhd = QUALITY.startswith("2160")
-    rate = ["-level", "5.1", "-b:v", "15000k", "-maxrate", "20000k", "-bufsize", "30000k"] if uhd else \
-        ["-level", "4.1", "-b:v", "5800k", "-maxrate", "20000k", "-bufsize", "24000k"]
-    common = ["-vf", f"ass={BUILD / 'subs.ass'}", "-c:v", "libx264", "-preset", "slow", "-profile:v", "high",
-              *rate, "-g", "300",
-              "-pix_fmt", "yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709",
-              "-color_range", "tv", "-passlogfile", log]
-    run(["ffmpeg", "-y", "-i", str(BUILD / "video.mp4"), *common, "-pass", "1", "-an", "-f", "null", "/dev/null"])
-    run(["ffmpeg", "-y", "-i", str(BUILD / "video.mp4"), "-i", str(BUILD / "narration.wav"), *common, "-pass", "2",
-         "-map", "0:v", "-map", "1:a", "-c:a", "aac", "-b:a", "320k", "-ar", str(SR),
-         "-movflags", "+faststart", "-shortest", str(out)])
-    print("wrote", out)
-
-
 if __name__ == "__main__":
-    if "--bilibili" in sys.argv:
-        encode_bilibili()
-    else:
-        main()
+    main()
