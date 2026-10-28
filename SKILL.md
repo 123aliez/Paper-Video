@@ -14,7 +14,7 @@ description: "Turn a research paper (PDF, arXiv link or title) into a finished C
 | 项目 | 默认 |
 |---|---|
 | 时长 | ≤ 10 分钟（口播约 2300–2400 字、25 镜左右） |
-| 观众 | B 站学术区：愿意动脑，不熟悉该子领域 |
+| 观众 | 有一般生活经验和理解能力，不熟悉论文所属领域（同 ljg-paper） |
 | 配音 | `zh-CN-XiaoxiaoNeural`，语速 `+6%`（清新明亮的女声） |
 | 画面 | 1920×1080、30 fps，深色背景 |
 | 工作目录 | PDF 所在目录；若那里还有无关文件（如下载目录），在旁边新建 `<短名>/` 并把 PDF 复制进去 |

@@ -56,7 +56,7 @@ git clone https://github.com/123aliez/Paper-Video ~/.claude/skills/paper-video
 | 项目 | 默认 | 怎么改 |
 |---|---|---|
 | 时长 | ≤ 10 分钟 | 在请求里说明 |
-| 观众 | B 站学术区，不熟悉该子领域 | 在请求里说明 |
+| 观众 | 有一般理解能力、不熟悉论文所属领域的人 | 在请求里说明 |
 | 配音 | `zh-CN-XiaoxiaoNeural`，`+6%` | `production/video.json` 的 `voice`、`rate`；男声可用 `zh-CN-YunxiNeural` |
 | 读音修正 | 无 | `video.json` 的 `tts_replace`（只改读音，不改字幕） |
 | 分辨率 | 1920×1080、30 fps | `RES=3840,2160 ./render.sh`，并把 `quality` 设为 `2160p30` |
